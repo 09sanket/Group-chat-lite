@@ -1,0 +1,13 @@
+/* Styles for contactus.ejs */
+body {
+    background-color: #e0e0e0;
+  }
+  
+  form {
+    background-color: red;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  /* Add more styles as needed for this template */
+  

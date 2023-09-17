@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Chat</title>
+  <link rel="stylesheet" href="index.css">
+
 </head>
 <body>
   <h1>Welcome, <%= username %></h1>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/contactus">Contact Us</a></li> <!-- Add Contact Us link -->
+    </ul>
+  </nav>
   <div id="messages">
     <% messages.forEach((message) => { %>
       <p><%= message.username %>: <%= message.message %></p>
