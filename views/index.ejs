@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+</head>
+<body>
+  <h1>Welcome, <%= username %></h1>
+  <div id="messages">
+    <% messages.forEach((message) => { %>
+      <p><%= message.username %>: <%= message.message %></p>
+    <% }); %>
+  </div>
+  <form id="messageForm" action="/send" method="POST">
+    <input type="text" name="message" placeholder="Type a message..." required>
+    <button type="submit">Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const messageForm = document.getElementById('messageForm');
+
+    messageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const messageInput = messageForm.querySelector('input[name="message"]');
+      const message = messageInput.value.trim();
+      if (message) {
+        socket.emit('new message', { username: "<%= username %>", message });
+        messageInput.value = '';
+      }
+    });
+
+    socket.on('new message', ({ username, message }) => {
+      const messagesDiv = document.getElementById('messages');
+      const newMessage = document.createElement('p');
+      newMessage.innerText = `${username}: ${message}`;
+      messagesDiv.appendChild(newMessage);
+    });
+  </script>
+</body>
+</html>
